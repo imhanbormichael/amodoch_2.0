@@ -351,6 +351,23 @@ body {
     stroke: currentColor;
     stroke-width: 2;
     fill: none;
+  stroke: #f5c542;
+  filter: drop-shadow(0 0 4px rgba(245, 197, 66, 0.4));
+}
+
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(245, 180, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 /* TEXT */
@@ -402,3 +419,106 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+
+
+
+.why-choose-section {
+  background: #0b0b0b;
+  padding: 80px 20px;
+}
+
+.why-choose-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.section-label {
+  color: #f5b400;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+.why-text h2 {
+  font-size: 48px;
+  color: #fff;
+}
+
+.why-text h2 span {
+  color: #f5b400;
+}
+
+.why-text p {
+  color: #cfcfcf;
+  max-width: 520px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.feature {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.feature svg {
+  width: 48px;
+  height: 48px;
+  flex-shrink: none;
+  stroke: #f5b400;
+  margin-top: 2px;
+}
+
+
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.image-plate {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background: rgba(245, 180, 0, 0.15);
+    transform: translate(-14px, 18px);
+    z-index: 0;
+}
+
+.image-glow {
+    position: absolute;
+    inset: -22px; /* tight glow around edges */
+    border-radius: 22px;
+
+    background: radial-gradient(
+        circle,
+        rgba(245, 180, 0, 0.22) 0%,
+        rgba(245, 180, 0, 0.12) 45%,
+        transparent 70%
+    );
+
+    filter: blur(28px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.feature-image {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    z-index: 2;
+}
+
+
+
