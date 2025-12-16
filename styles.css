@@ -522,3 +522,193 @@ body {
 
 
 
+.get-started-section {
+    width: 100%;
+  background: transparent;
+  padding: 80px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.get-started-card {
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 200, 90, 0.35) 0%,
+      rgba(170, 120, 40, 0.55) 0%,
+      rgba(95, 70, 30, 0.85) 0%,
+      rgba(140, 100, 40, 0.75) 96%,
+      rgba(190, 145, 60, 0.65) 100%
+    ),
+    linear-gradient(
+      135deg,
+      #b88933,
+      #6f4f1d,
+      #b88933
+    );
+
+  box-shadow:
+    inset 0 0 80px rgba(0, 0, 0, 0.25),
+    0 25px 60px rgba(0, 0, 0, 0.6);
+
+  border-radius: 22px;
+  padding: 55px 60px;
+  text-align: center;
+  max-width: none;
+  margin: 0 auto;
+  width: calc(100% - 120px);
+}
+
+.get-started-card h2 {
+  font-size: 42px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.get-started-card h2 span {
+  color: #ffbf3c;
+}
+
+.get-started-card p {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #f2f2f2;
+}
+
+.get-started-btn {
+  display: inline-block;
+  background: #ffbf3c;
+  color: #111;
+  padding: 14px 32px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.get-started-btn:hover {
+  background: #e6ac2f;
+  transform: translateY(-2px);
+}
+
+
+/* ================= CONTACT INFO SECTION ================= */
+.contact-info-section {
+  background: #111;
+  padding: 100px 0;
+}
+
+/* GRID */
+.contact-info-container {
+  width: 92%;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* ================= GLOW WRAPPER ================= */
+.contact-glow {
+  position: relative;
+  overflow: visible;
+}
+
+/* OUTSIDE GOLD GLOW */
+.contact-glow::before {
+  content: "";
+  position: absolute;
+  inset: -28px;
+  border-radius: 40px;
+
+  background: radial-gradient(
+    circle,
+    rgba(212, 165, 55, 0.28),
+    rgba(212, 165, 55, 0.14) 38%,
+    rgba(212, 165, 55, 0.06) 55%,
+    transparent 75%
+  );
+
+  filter: blur(35px);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  transition: opacity 0.45s ease;
+}
+
+/* SHOW GLOW ON HOVER */
+.contact-glow:hover::before {
+  opacity: 1;
+}
+
+/* ================= CARD ================= */
+.contact-card {
+  position: relative;
+  z-index: 1;
+
+  background: #1b1b1b;
+  border-radius: 20px;
+  padding: 42px;
+  text-align: center;
+
+  /* DEFAULT GREY BORDER */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  transition: border-color 0.35s ease;
+}
+
+/* GOLD BORDER ON HOVER */
+.contact-glow:hover .contact-card {
+  border-color: rgba(212, 165, 55, 0.95);
+}
+
+/* ================= ICON ================= */
+.contact-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 22px;
+
+  border-radius: 14px;
+  background: rgba(212, 165, 55, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--gold);
+}
+
+.contact-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ================= TEXT ================= */
+.contact-card h4 {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.contact-card p {
+  color: #bcbcbc;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* LINKS (PHONE / EMAIL) */
+.contact-card a {
+  display: inline-block;
+  margin-top: 10px;
+
+  color: var(--gold);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
