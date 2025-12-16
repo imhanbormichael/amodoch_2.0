@@ -1,0 +1,404 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= ROOT COLORS ================= */
+:root {
+    --gold: #d4a437;
+    --black: #0b0b0b;
+    --white: #ffffff;
+}
+
+/* ================= GLOBAL FONT ================= */
+body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--black);
+    color: var(--white);
+}
+/* ================= FONT UTILITY CLASSES ================= */
+.inter-body-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.inter-heading {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10;
+    border-bottom: #343333 0.1px solid;
+    border-width: 0.2px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+  height: 90px;
+  width: auto;
+}
+
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 14px;
+}
+.nav-links a:hover {
+    color: var(--gold);
+}
+/* ================= BUTTONS ================= */
+.btn-primary {
+    background: var(--gold);
+    color: #111;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-outline:hover {
+    background: var(--gold);
+    color: #111;
+}
+.btn-primary:hover {
+    background: #b38e2c;
+    padding: 14px 22px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* ================= HERO SECTION ================= */
+.hero {
+    height: 100vh;
+    background-image: url("assets/motorbike.png");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding: 0 60px;
+}
+
+/* DARK OVERLAY */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* GOLD BLUR OVERLAY */
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 1200px;
+    height: 600px;
+    background: radial-gradient(
+        circle,
+         rgba(212, 164, 55, 0.16) 0%,
+         rgba(212, 164, 55, 0.12) 20%,
+         rgba(212, 164, 55, 0.08) 40%,
+         rgba(212, 164, 55, 0.04) 55%,
+         rgba(212, 164, 55, 0.02) 65%,
+         transparent 80%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(2px);
+}
+
+/* ================= HERO BADGE ================= */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    margin: 0 0 20px 0;
+
+    border: 1px solid rgba(212, 164, 55, 0.6);
+    border-radius: 30px;
+
+    color: var(--white);
+    font-size: 14px;
+    background: rgba(71, 71, 71, 0.4);
+
+    width: fit-content;
+}
+
+/* Small gold dot */
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+/* HERO CONTENT */
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+}
+
+.hero-title {
+    font-size: 48px;
+    margin-top: 58px;
+    margin-bottom: 24px;
+}
+
+.hero-title span {
+    color: var(--gold);
+}
+
+.hero-description {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 32px;
+    color: #ddd;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* ================= WHAT WE OFFER SECTION ================= */
+.offer-section {
+    background: #000;
+    padding: 120px 60px;
+    text-align: center;
+}
+
+.offer-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Small gold label */
+.offer-label {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* Main heading */
+.offer-title {
+    font-size: 42px;
+    margin-bottom: 24px;
+}
+
+.offer-title span {
+    color: var(--gold);
+}
+
+/* Description text */
+.offer-description {
+    font-size: 16px;
+    color: #ccc;
+    line-height: 1.7;
+}
+
+/* ================= SERVICES SECTION ================= */
+.services-section {
+    padding: 120px 20px;
+    background: #0b0b0b;
+}
+
+.services-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 80px;
+}
+
+.services-eyebrow {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.services-title {
+    font-size: 40px;
+    margin: 16px 0;
+}
+
+.services-title span {
+    color: var(--gold);
+}
+
+.services-description {
+    color: #cfcfcf;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* ================= SERVICES GRID ================= */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(320px, 1fr) );
+    gap: 48px;
+    align-items: stretch;
+}
+
+/* ================GLOW WRAPPER================ */
+.service-glow {
+    position: relative;
+    overflow: visible;
+}
+
+/* OUTSIDE GOLD HALO */
+.service-glow::before {
+    content: "";
+    position: absolute;
+    inset: -40px;
+
+    background: radial-gradient(
+        circle,
+        rgba(212, 164, 55, 0.45),
+        rgba(212, 164, 55, 0.25) 35%,
+        rgba(212, 164, 55, 0.12) 55%,
+        transparent 75%
+    );
+
+    opacity: 0;
+    filter: blur(45px);
+    z-index: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+.service-glow:hover::before {
+    opacity: 1;
+}
+
+/* ================= CARD ================= */
+.service-card {
+    position: relative;
+    z-index: 1;
+    background: #121212;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 32px;
+    transition: all 0.35s ease;
+    overflow: visible; /* allows outside glow */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-glow:hover .service-card {
+    border-color: var(--gold);
+}
+
+/* featured */
+.service-card.featured {
+    border-color: #2a2a2a;
+}
+
+/* ================= ICON ================= */
+.service-icon {
+    width: 54px;
+    height: 54px;
+    background: rgba(212, 164, 55, 0.18);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    color: var(--gold);
+}
+
+.service-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* TEXT */
+.service-card h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: #d6d6d6;
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+}
+
+/*  LIST  */
+.service-card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: auto;
+}
+
+.service-card ul li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 10px;
+    color: #ddd;
+    font-size: 13px;
+}
+.service-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
