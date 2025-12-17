@@ -245,12 +245,12 @@ body.menu-open {
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* fallback */
+  min-height: calc(100vh - 80px); 
   display: flex;
   align-items: center;
   overflow: hidden;
 
-  padding: 120px 60px 100px;
+  padding: 0px 60px 100px;
 
   background-image: url("assets/motorbike.png");
   background-size: cover;
@@ -293,6 +293,8 @@ body.menu-open {
   position: relative;
   z-index: 2;
   max-width: 720px;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .hero-badge {
