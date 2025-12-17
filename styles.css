@@ -398,8 +398,8 @@ body.menu-open {
   .hero {
     min-height: 100svh; /* ✅ mobile-safe full viewport */
     padding: 86px 20px 82px;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: start;
     background-position: center top;
   }
 
