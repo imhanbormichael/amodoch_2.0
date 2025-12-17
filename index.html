@@ -31,20 +31,36 @@
 
     <!-- ================= HEADER / NAVBAR ================= -->
     <header class="navbar">
-        <div class="logo inter-heading">
-            <a href="index.html"><img src="/assets/logo.png" alt="amodoch logo"></a>
-        </div>
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="assets/logo.png" alt="Amodoch Logistics">
+  </div>
 
-        <nav class="nav-links inter-body-text">
-            <a href="index.html">Home</a>
-            <a href="#services-section">Services</a>
-            <a href="#why-choose-section">About</a>
-            <a href="#get-started-section">Contact</a>
-        
+  <!-- HAMBURGER -->
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-        <a class="btn-primary inter-body-text" href="#get-started-section">Book now</a>
-        </nav>
-    </header>
+  <!-- NAV LINKS -->
+  <nav class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#services-section">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+
+    <!-- MOBILE CTA -->
+    <div class="mobile-cta">
+      <a href="#get-started-section" class="btn-primary">Book now</a>
+    </div>
+  </nav>
+
+  <!-- DESKTOP CTA -->
+  <div class="nav-cta">
+    <a href="#get-started-section" class="btn-primary">Book now</a>
+  </div>
+</header>
 
     <!-- ================= HERO SECTION ================= -->
     <section class="hero">
@@ -531,7 +547,7 @@
 
         <div class="feature">
           <div class="icon-box">
-          <svg class="icon-svg" viewBox="0 0 24 24" fill="none"
+          <svg class="icon-svg" 
   xmlns="http://www.w3.org/2000/svg"
   width="18"
   height="18"
@@ -556,7 +572,7 @@
 
         <div class="feature">
           <div class="icon-box">
-          <svg class="icon-svg" viewBox="0 0 24 24" fill="none"
+          <svg class="icon-svg"
   xmlns="http://www.w3.org/2000/svg"
   width="18"
   height="18"
@@ -581,7 +597,7 @@
 
         <div class="feature">
           <div class="icon-box">
-          <svg class="icon-svg" viewBox="0 0 24 24" fill="none"
+          <svg class="icon-svg"
   xmlns="http://www.w3.org/2000/svg"
   width="18"
   height="18"
@@ -619,7 +635,7 @@
     <div class="image-wrapper">
       <div class="image-plate"></div>
         <div class="image-glow"></div>
-            <img src="assets/cars.png" alt="Luxury vehicles" class="feature-image">
+            <img src="assets/cars.png" alt="Luxury vehicles" class="feature-image" loading="lazy">
 
     </div>
 
@@ -692,8 +708,8 @@
       </div>
       <h4>Email Us</h4>
       <p>We reply within 24 hours</p>
-      <a href="mailto:amodoch2021@gmail.com?cc=amodoch2021@gmail.com &bcc=amodoch2021@gmail.com &subject=Book a service">
-         amodoch2021@gmail.com,
+      <a href="mailto:amodoch2021@gmail.com?cc=amodoch2021@gmail.com&bcc=amodoch2021@gmail.com&subject=Book%20a%20service">
+        amodoch2021@gmail.com
       </a>
     </div>
     </div>
@@ -739,10 +755,10 @@
     <!-- SOCIAL ICONS -->
     <div class="footer-socials">
       <a href="https://www.facebook.com/share/1A3gxLW4Tc/" target="_blank">
-        <img src="assets/facebook-logo.png" alt="Facebook" >
+        <img src="assets/facebook-logo.png" alt="Facebook" loading="lazy">
       </a>
       <a href="https://www.instagram.com/amodoch_logistics?igsh=YTVoZTQzOTIwZjhz" target="_blank">
-        <img src="assets/instagram-icon.png" alt="Instagram">
+        <img src="assets/instagram-icon.png" alt="Instagram" loading="lazy">
       </a>
     </div>
 
@@ -780,6 +796,64 @@ const observer = new IntersectionObserver(
 );
 
 reveals.forEach(el => observer.observe(el));
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ================= REVEAL ANIMATIONS ================= */
+  const reveals = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  reveals.forEach(el => observer.observe(el));
+
+  /* ================= NAVIGATION TOGGLE ================= */
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const navLinkItems = document.querySelectorAll('.nav-links a');
+
+  if (!navToggle || !navLinks) return;
+
+  function closeMenu() {
+    navToggle.classList.remove('active');
+    navLinks.classList.remove('active');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  }
+
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const isOpen = navLinks.classList.toggle('active');
+    navToggle.classList.toggle('active');
+
+    navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.classList.toggle('menu-open', isOpen);
+  });
+
+  navLinkItems.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('scroll', closeMenu);
+
+});
 </script>
 </body>
 </html>
