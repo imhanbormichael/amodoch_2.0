@@ -146,6 +146,9 @@ body.menu-open {
 
 /* MOBILE NAV */
 @media (max-width: 900px) {
+    .navbar {
+        position: fixed;
+    }
   .nav-toggle {
     display: flex;
   }
