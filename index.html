@@ -854,7 +854,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  window.addEventListener('scroll', closeMenu);
+  window.addEventListener('scroll', () => {
+  if (navLinks.classList.contains('active')) {
+    closeMenu();
+  }
+});
 
 });
 </script>
