@@ -13,7 +13,7 @@
 }
 
 /* ================= GLOBAL FONT ================= */
-html, body {
+html {
     width: 100%;
     overflow-x: hidden;
     font-family: "Inter", sans-serif;
@@ -23,6 +23,10 @@ html, body {
     background-color: var(--black);
     color: var(--white);
     scroll-behavior: smooth;
+}
+.body {
+    width: 100%;
+    overflow-x: clip;
 }
 /* ================= FONT UTILITY CLASSES ================= */
 .inter-body-text {
@@ -58,6 +62,7 @@ body.menu-open {
 .navbar {
   position: sticky;
   top: 0;
+  left: 0;
   height: 80px;
   width: 100%;
   padding: 10px 30px;
@@ -66,11 +71,14 @@ body.menu-open {
   justify-content: space-between;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
-  z-index: 1000;
+  z-index: 9999;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 /* LOGO */
+.logo {
+    cursor: pointer;
+}
 .logo img {
   height: 90px;
   width: auto;
@@ -235,6 +243,7 @@ body.menu-open {
   position: relative;
   width: 100%;
   padding: 120px 60px 100px; /* top / sides / bottom */
+  padding-top: 80px;
   display: flex;
   align-items: flex-start;
 
@@ -416,7 +425,6 @@ body.menu-open {
 
 @media (min-width: 900px) {
   .hero {
-    min-height: calc(100vh - 80px);
     padding-top: 5px;
     align-items: flex-start;
   }
