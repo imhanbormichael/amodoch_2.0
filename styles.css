@@ -397,7 +397,7 @@ body.menu-open {
 @media (max-width: 768px) {
   .hero {
     min-height: 100svh; /* ✅ mobile-safe full viewport */
-    padding: 96px 20px 72px;
+    padding: 86px 20px 82px;
     align-items: center;
     text-align: center;
     background-position: center top;
