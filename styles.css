@@ -215,16 +215,18 @@ body.menu-open {
     color: #000;
 }
 
-/* ================= HERO SECTION ================= */
+/* ================= HERO SECTION (CONTENT-FIT) ================= */
 .hero {
-    height: 100vh;
-    background-image: url("assets/motorbike.png");
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    padding: 0 60px;
+  position: relative;
+  width: 100%;
+  padding: 120px 60px 100px; /* top / sides / bottom */
+  display: flex;
+  align-items: flex-start;
+
+  background-image: url("assets/motorbike.png");
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
 }
 
 /* DARK OVERLAY */
@@ -310,12 +312,7 @@ body.menu-open {
     gap: 20px;
 }
 
-.hero {
-  min-height: 100vh;
-  padding: clamp(40px, 6vw, 80px);
-  background-size: cover;
-  background-position: center 35%;
-}
+
 
 .hero-content {
   max-width: 720px;
@@ -333,11 +330,7 @@ body.menu-open {
 /* ================= HERO — ULTRA-WIDE / 4K (2560px+) ================= */
 @media (min-width: 2560px) {
   .hero {
-    min-height: 72vh;
-    background-size: cover;
-    background-position: center 35%;
-    padding-left: 200px;
-    padding-right: 200px;
+    padding: 160px 200px 140px;
   }
 
   .hero::after {
@@ -374,10 +367,7 @@ body.menu-open {
 /* ================= HERO — LARGE DESKTOPS (1440px+) ================= */
 @media (min-width: 1440px) {
   .hero {
-    min-height: 78vh;
-    padding-left: 120px;
-    padding-right: 120px;
-    align-items: center;
+    padding: 140px 120px 120px;
   }
 
   .hero::after {
@@ -432,15 +422,12 @@ body.menu-open {
 @media (max-width: 768px) {
 
   .hero {
-    height: auto;
-    min-height: 72svh;              /* NOT full screen */
     padding: 96px 20px 72px;
-    align-items: center;
     text-align: center;
+    background-position: center top;
   }
 
   .hero-content {
-    max-width: 640px;
     margin: 0 auto;
   }
 
@@ -476,7 +463,6 @@ body.menu-open {
   .hero-buttons a {
     width: 100%;
     max-width: 300px;
-    padding: 14px 0;
   }
 }
 
