@@ -24,7 +24,7 @@ html {
     color: var(--white);
     scroll-behavior: smooth;
 }
-.body {
+body {
     width: 100%;
     overflow-x: clip;
 }
@@ -147,7 +147,7 @@ body.menu-open {
 /* MOBILE NAV */
 @media (max-width: 900px) {
     .navbar {
-        position: fixed;
+        backdrop-filter: none;
     }
   .nav-toggle {
     display: flex;
@@ -251,7 +251,7 @@ body.menu-open {
   min-height: calc(100vh - 80px); 
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
 
   padding: 0px 60px 100px;
 
@@ -259,6 +259,9 @@ body.menu-open {
   background-size: cover;
   background-position: center 35%;
   background-repeat: no-repeat;
+}
+.hero-inner {
+  overflow: hidden;
 }
 
 /* ---------- Dark Overlay ---------- */
