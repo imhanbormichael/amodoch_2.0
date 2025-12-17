@@ -13,7 +13,9 @@
 }
 
 /* ================= GLOBAL FONT ================= */
-body {
+html, body {
+    width: 100%;
+    overflow-x: hidden;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -34,7 +36,7 @@ body {
     line-height: 1.2;
 }
 
-body.menu-opem {
+body.menu-open {
     overflow: hidden;
 }
 /* ================= NAVBAR ================= */
@@ -311,6 +313,8 @@ body.menu-opem {
 .hero {
   min-height: 100vh;
   padding: clamp(40px, 6vw, 80px);
+  background-size: cover;
+  background-position: center 35%;
 }
 
 .hero-content {
@@ -324,6 +328,85 @@ body.menu-opem {
 .hero-description {
   font-size: clamp(15px, 1.6vw, 18px);
   max-width: 620px;
+}
+
+/* ================= HERO — ULTRA-WIDE / 4K (2560px+) ================= */
+@media (min-width: 2560px) {
+  .hero {
+    min-height: 72vh;
+    background-size: cover;
+    background-position: center 35%;
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+
+  .hero::after {
+    width: 1600px;
+    height: 760px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.85;
+    filter: blur(8px);
+  }
+
+  .hero-content {
+    max-width: 980px;
+  }
+
+  .hero-title {
+    font-size: 76px;
+    line-height: 1.15;
+  }
+
+  .hero-description {
+    font-size: 20px;
+    max-width: 760px;
+  }
+
+  .hero::after {
+    width: 2000px;
+    height: 1000px;
+    opacity: 1;
+    filter: blur(4px);
+  }
+}
+
+/* ================= HERO — LARGE DESKTOPS (1440px+) ================= */
+@media (min-width: 1440px) {
+  .hero {
+    min-height: 78vh;
+    padding-left: 120px;
+    padding-right: 120px;
+    align-items: center;
+  }
+
+  .hero::after {
+    width: 1300px;
+    height: 620px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    filter: blur(6px);
+  }
+
+  .hero-content {
+    max-width: 820px;
+  }
+
+  .hero-title {
+    font-size: 64px;
+  }
+
+  .hero-description {
+    font-size: 18px;
+    max-width: 680px;
+  }
+
+  .hero::after {
+    width: 1500px;
+    height: 750px;
+    opacity: 0.95;
+  }
 }
 
 @media (min-width: 900px) {
@@ -347,25 +430,43 @@ body.menu-opem {
 }
 
 @media (max-width: 768px) {
+
   .hero {
     height: auto;
-    min-height: 100svh;
-    padding: 80px 20px 60px;
+    min-height: 72svh;              /* NOT full screen */
+    padding: 96px 20px 72px;
     align-items: center;
-  }
-
-  .hero-content {
     text-align: center;
   }
 
+  .hero-content {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Badge */
   .hero-badge {
-    margin: 0 auto 20px;
+    margin: 0 auto 18px;
+    font-size: 12px;
+    padding: 6px 14px;
   }
 
+  /* Title */
   .hero-title {
-    margin-top: 30px;
+    margin-top: 18px;
+    font-size: clamp(28px, 5.8vw, 34px);
+    line-height: 1.25;
   }
 
+  /* Subtext */
+  .hero-text {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 14px auto 32px;
+  }
+
+  /* Buttons */
   .hero-buttons {
     flex-direction: column;
     align-items: center;
@@ -374,9 +475,11 @@ body.menu-opem {
 
   .hero-buttons a {
     width: 100%;
-    max-width: 260px;
+    max-width: 300px;
+    padding: 14px 0;
   }
 }
+
 @media (max-width: 480px) {
   .hero-title {
     font-size: 30px;
@@ -804,6 +907,12 @@ body.menu-opem {
     border-radius: 12px;
     z-index: 2;
 }
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 /* =====================================================
    WHY CHOOSE US — RESPONSIVE
    ===================================================== */
@@ -867,7 +976,6 @@ body.menu-opem {
   }
 
   .features-grid {
-    grid-template-columns: 1fr 1fr;
     justify-items: center;
   }
 
@@ -876,8 +984,41 @@ body.menu-opem {
   }
 }
 
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    justify-items: stretch;
+  }
+
+  .feature {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start; /* ✅ KEY FIX */
+    text-align: left;            /* ✅ KEY FIX */
+    gap: 16px;
+  }
+
+  .feature svg {
+    width: 44px;
+    height: 44px;
+    margin-top: 4px;
+  }
+}
+
 /* ---------- Phones ---------- */
 @media (max-width: 640px) {
+
+    .image-plate,
+    .image-glow {
+        display: none;
+    }
+   .why-choose-container {
+    max-width: 100%;
+    margin: 0;
+   }
+
   #why-choose-section {
     padding: 64px 16px;
   }
@@ -943,6 +1084,7 @@ body.menu-opem {
   padding: 80px 0px;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .get-started-card {
@@ -1067,12 +1209,11 @@ body.menu-opem {
 /* ---------- Mobile phones ---------- */
 @media (max-width: 640px) {
   #get-started-section {
-    padding: 60px 16px;
+    padding: 56px 16px;
   }
 
   .get-started-card {
-    width: 100%;
-    padding: 34px 24px;
+    padding: 34px 22px;
     border-radius: 18px;
   }
 
@@ -1089,7 +1230,6 @@ body.menu-opem {
 
   .get-started-btn {
     width: 100%;
-    padding: 14px 0;
   }
 }
 
@@ -1400,20 +1540,35 @@ body.menu-opem {
 }
 
 /* FLOATING WHATSAPP */
+/* ================= FLOATING WHATSAPP ================= */
+/* ================= FLOATING WHATSAPP ================= */
 .whatsapp-float {
   position: fixed;
-  bottom: 26px;
-  right: 26px;
+
+  /* iOS safe-area support */
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  right: calc(20px + env(safe-area-inset-right));
+
   width: 56px;
   height: 56px;
-  background: #25d366;
   border-radius: 50%;
+
+  background: linear-gradient(135deg, #25d366, #1ebe5d);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 30px rgba(37,211,102,0.35);
-  z-index: 999;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  box-shadow:
+    0 10px 30px rgba(37, 211, 102, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.15);
+
+  /* 🔥 VERY IMPORTANT */
+  z-index: 9999;
+
+  transition:
+    transform 0.3s cubic-bezier(.22,1,.36,1),
+    box-shadow 0.3s ease;
 }
 
 .whatsapp-float img {
@@ -1421,9 +1576,24 @@ body.menu-opem {
   height: 28px;
 }
 
+/* Hover */
 .whatsapp-float:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 40px rgba(37,211,102,0.45);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow:
+    0 16px 45px rgba(37,211,102,0.6);
+}
+
+/* Mobile fine-tune */
+@media (max-width: 640px) {
+  .whatsapp-float {
+    width: 52px;
+    height: 52px;
+  }
+
+  .whatsapp-float img {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 a:focus-visible,
