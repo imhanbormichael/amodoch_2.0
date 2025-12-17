@@ -428,7 +428,7 @@ body.menu-open {
 
   .hero-buttons {
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     gap: 14px;
   }
 
