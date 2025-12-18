@@ -29,13 +29,6 @@ body {
     max-width: 100%;
     margin: 0;
 }
-body.loading {
-    overflow: hidden;
-}
-
-body.menu-open {
-    overflow: hidden;
-}
 .overflow-x {
     overflow-x: hidden;
 }
@@ -409,6 +402,12 @@ img {
    TABLETS & MOBILE (≤ 768px)
    ===================================================== */
 @media (max-width: 768px) {
+    .hero,
+  #services-section,
+  #why-choose-section,
+  #get-started-section {
+    overflow-x: hidden;
+  }
   .hero {
     min-height: 100svh; /* ✅ mobile-safe full viewport */
     padding: 86px 20px 82px;
@@ -1702,13 +1701,5 @@ body.loading {
 @media (prefers-reduced-motion: reduce) {
   .loader {
     animation: none;
-  }
-}
-@media (max-width: 768px) {
-  .hero,
-  #services-section,
-  #why-choose-section,
-  #get-started-section {
-    overflow-x: hidden;
   }
 }
