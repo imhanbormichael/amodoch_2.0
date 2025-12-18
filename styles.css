@@ -34,6 +34,9 @@ body.loading {
 body.menu-open {
     overflow: hidden;
 }
+.overflow-x {
+    overflow-x: hidden;
+}
 /* ================= FONT UTILITY CLASSES ================= */
 .inter-body-text {
     font-family: "Inter", sans-serif;
