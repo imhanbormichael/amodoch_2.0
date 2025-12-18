@@ -812,8 +812,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ================= NAVBAR TOGGLE ================= */
   const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const navLinkItems = document.querySelectorAll('.nav-links a');
+  const navLinks  = document.querySelector('.nav-links');
+  const navItems  = document.querySelectorAll('.nav-links a');
 
   if (!navToggle || !navLinks) return;
 
@@ -835,12 +835,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.toggle('menu-open', isOpen);
   });
 
-  // Close when clicking a nav link
-  navLinkItems.forEach(link => {
+  // Close menu when clicking a nav link
+  navItems.forEach(link => {
     link.addEventListener('click', closeMenu);
   });
 
-  // Close when clicking outside the nav
+  // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
       closeMenu();
@@ -849,6 +849,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
