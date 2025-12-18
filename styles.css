@@ -415,6 +415,7 @@ img {
     align-items: flex-start;
     text-align: start;
     background-position: center top;
+    max-width: 100%;
   }
 
   .hero-content {
@@ -1701,5 +1702,13 @@ body.loading {
 @media (prefers-reduced-motion: reduce) {
   .loader {
     animation: none;
+  }
+}
+@media (max-width: 768px) {
+  .hero,
+  #services-section,
+  #why-choose-section,
+  #get-started-section {
+    overflow-x: hidden;
   }
 }
