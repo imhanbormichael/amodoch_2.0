@@ -15,7 +15,6 @@
 /* ================= GLOBAL FONT ================= */
 html {
     width: 100%;
-    overflow-x: hidden;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -26,9 +25,14 @@ html {
 }
 body {
     width: 100%;
-    overflow-x: clip;
+    margin: 0;
+    overflow-x: hidden;
 }
 body.loading {
+    overflow: hidden;
+}
+
+body.menu-open {
     overflow: hidden;
 }
 /* ================= FONT UTILITY CLASSES ================= */
@@ -58,9 +62,6 @@ img {
     }
 }
 
-body.menu-open {
-    overflow: hidden;
-}
 /* ================= NAVBAR ================= */
 .navbar {
   position: sticky;
