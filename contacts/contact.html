@@ -28,6 +28,7 @@ body{
 }
 
 /* NAVBAR */
+/* NAVBAR */
 .navbar{
   width:100%;
   position:sticky;
@@ -39,12 +40,65 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  transition: all 0.3s ease;
 }
-.logo{color:#d4af37;font-size:24px;font-weight:600;}
-.navbar ul{display:flex;gap:30px;list-style:none;}
-.navbar a{color:#e6e6e6;text-decoration:none;transition:.3s;}
-.navbar a:hover{color:#d4af37;}
-.toggle{display:none;font-size:30px;cursor:pointer;}
+.logo{
+  color:#d4af37;
+  font-size:24px;
+  font-weight:600;
+}
+.navbar ul{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
+.navbar a{
+  color:#e6e6e6;
+  text-decoration:none;
+  transition:.3s;
+}
+.navbar a:hover{
+  color:#d4af37;
+}
+.toggle{
+  display:none;
+  font-size:30px;
+  cursor:pointer;
+  color:#e6e6e6;
+}
+
+/* MOBILE NAV */
+@media(max-width:900px){
+  .navbar ul{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:80%;
+    height:100vh;
+    background:#0b0b0b;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+    padding:40px 20px;
+    box-shadow: -4px 0 20px rgba(212,175,55,0.15);
+    border-left:1px solid rgba(212,175,55,.2);
+    transition: right 0.4s ease-in-out;
+    z-index:998;
+  }
+
+  .navbar ul.active{
+    right:0;
+  }
+
+  .toggle{
+    display:block;
+  }
+
+  .navbar a{
+    font-size:18px;
+  }
+}
 
 @media(max-width:900px){
   .navbar ul{
@@ -467,16 +521,19 @@ button:hover{
 const menu = document.getElementById("menu");
 const toggleBtn = document.querySelector(".toggle");
 
+/* Toggle mobile menu */
 function toggleMenu(){
   menu.classList.toggle("active");
 }
 
-// Close menu when clicking a link
+/* Close menu when clicking a link */
 document.querySelectorAll("#menu a").forEach(link=>{
-  link.addEventListener("click", ()=> menu.classList.remove("active"));
+  link.addEventListener("click", ()=>{
+    menu.classList.remove("active");
+  });
 });
 
-// Close menu when clicking outside
+/* Close menu when clicking outside */
 document.addEventListener("click", e=>{
   if(!menu.contains(e.target) && !toggleBtn.contains(e.target)){
     menu.classList.remove("active");
