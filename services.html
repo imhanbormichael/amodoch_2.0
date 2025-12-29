@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | AmodoCh Logistics</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:"Poppins", Arial;
+  background:#0b0b0b;
+  color:#e6e6e6;
+}
+
+/* NAVBAR */
+.navbar{
+  width:100%;
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#0b0b0b;
+  border-bottom:1px solid rgba(212,175,55,.28);
+  padding:18px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{color:#d4af37;font-size:24px;font-weight:600;}
+.navbar ul{display:flex;gap:30px;list-style:none;}
+.navbar a{color:#e6e6e6;text-decoration:none;transition:.3s;}
+.navbar a:hover,.navbar a.active{color:#d4af37;}
+.toggle{display:none;font-size:30px;cursor:pointer;}
+
+@media(max-width:900px){
+  .navbar ul{
+    position:fixed;
+    top:70px;
+    right:-100%;
+    width:70%;
+    height:100vh;
+    background:#000;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition:.4s;
+  }
+  .navbar ul.active{right:0;}
+  .toggle{display:block;color:#e6e6e6;}
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:80px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+.hero h1{
+  font-size:38px;
+  font-weight:600;
+}
+.hero span{
+  color:#d4af37;
+}
+.hero p{
+  margin-top:10px;
+  color:#bfbfbf;
+  font-size:15px;
+}
+
+/* SECTION WRAPPER */
+.section{
+  max-width:1150px;
+  margin:50px auto;
+  padding:25px;
+}
+
+/* TITLE */
+.section-title{
+  margin-bottom:25px;
+}
+.section-title h2{
+  font-size:26px;
+  font-weight:600;
+  display:inline-block;
+  border-left:5px solid #d4af37;
+  padding-left:12px;
+}
+
+/* SERVICES GRID */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+@media(max-width:1000px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:700px){.services-grid{grid-template-columns:1fr;}}
+
+/* CARD */
+.card{
+  background:#101010;
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:16px;
+  padding:25px;
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 25px rgba(212,175,55,.25);
+  border-color:#d4af37;
+}
+.card::after{
+  content:"";
+  position:absolute;
+  width:50px;
+  height:50px;
+  right:-20px;
+  top:-20px;
+  background:#d4af37;
+  opacity:.2;
+  border-radius:50%;
+  filter:blur(8px);
+}
+.card h3{
+  font-size:18px;
+  color:#d4af37;
+  margin-bottom:8px;
+}
+.card p{
+  color:#bfbfbf;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* CTA BANNER */
+.cta{
+  background:linear-gradient(to right,#d4af37,#b8962c);
+  padding:35px 20px;
+  text-align:center;
+  border-radius:14px;
+  color:#000;
+  margin-top:40px;
+}
+.cta h2{
+  font-weight:700;
+}
+.cta p{
+  margin:6px 0 16px;
+}
+.cta a{
+  background:#000;
+  padding:10px 20px;
+  border-radius:6px;
+  color:#d4af37;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+}
+.cta a:hover{
+  opacity:.8;
+}
+
+/* FOOTER */
+.footer{
+  background:#000;
+  border-top:1px solid rgba(212,175,55,.25);
+  text-align:center;
+  padding:25px;
+  color:#cfcfcf;
+  margin-top:50px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">AmodoCh Logistics</div>
+
+  <ul id="menu">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/contacts/contact.html">Contact</a></li>
+  </ul>
+
+  <div class="toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+
+<section class="hero">
+  <h1>Professional <span>Bike & Car</span> Logistics Services</h1>
+  <p>Delivering excellence with safe, reliable and efficient mobility solutions.</p>
+</section>
+
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>What We Do</h2>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="card">
+      <h3>🏍️ Bike Dispatch Services</h3>
+      <p>Fast, reliable and secure motorcycle delivery services for individuals and businesses.</p>
+    </div>
+
+    <div class="card">
+      <h3>🚗 Car Transport & Support</h3>
+      <p>Professional car movement services ensuring safe handling and timely delivery.</p>
+    </div>
+
+    <div class="card">
+      <h3>🏢 Corporate Delivery Solutions</h3>
+      <p>Dedicated dispatch and mobility support for companies, brands and organizations.</p>
+    </div>
+
+    <div class="card">
+      <h3>📍 Door-to-Door Pickup</h3>
+      <p>Convenient collection and drop-off services directly to your preferred location.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Express & Priority Dispatch</h3>
+      <p>Urgent deliveries handled with top priority, speed and professionalism.</p>
+    </div>
+
+    <div class="card">
+      <h3>🚘 Fleet Management Support</h3>
+      <p>Reliable operational support to keep vehicles and dispatch operations running smoothly.</p>
+    </div>
+
+  </div>
+
+  <div class="cta">
+    <h2>Your Mobility, Our Priority</h2>
+    <p>Partner with AmodoCh Logistics today for smooth, stress-free service.</p>
+    <a href="/contacts/contact.html">Contact Us</a>
+  </div>
+
+</section>
+
+<footer class="footer">
+  ©️ 2025 AmodoCh Logistics. All Rights Reserved.
+</footer>
+
+
+<script>
+const menu = document.getElementById("menu");
+const toggleBtn = document.querySelector(".toggle");
+
+/* Toggle Menu */
+function toggleMenu(){
+  menu.classList.toggle("active");
+}
+
+/* Close when clicking any nav link */
+document.querySelectorAll("#menu a").forEach(link=>{
+  link.addEventListener("click", ()=> menu.classList.remove("active"));
+});
+
+/* Close when clicking outside navbar */
+document.addEventListener("click", e=>{
+  if(!menu.contains(e.target) && !toggleBtn.contains(e.target)){
+    menu.classList.remove("active");
+  }
+});
+</script>
+
+</body>
+</html>
