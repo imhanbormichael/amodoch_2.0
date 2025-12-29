@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Amodoch Logistics</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:"Poppins", Arial;
+  background:#0b0b0b;
+  color:#e6e6e6;
+}
+
+/* NAVBAR */
+.navbar{
+  width:100%;
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#0b0b0b;
+  border-bottom:1px solid rgba(212,175,55,.28);
+  padding:18px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{color:#d4af37;font-size:24px;font-weight:600;}
+.navbar ul{display:flex;gap:30px;list-style:none;}
+.navbar a{color:#e6e6e6;text-decoration:none;transition:.3s;}
+.navbar a:hover{color:#d4af37;}
+.toggle{display:none;font-size:30px;cursor:pointer;}
+
+@media(max-width:768px){
+  .navbar ul{
+    position:fixed;
+    top:70px;
+    right:-100%;
+    width:70%;
+    height:100vh;
+    background:#000;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition:.4s;
+  }
+  .navbar ul.active{right:0;}
+  .toggle{display:block;}
+}
+
+/* SECTION */
+.contact-container{
+  max-width:1150px;
+  margin:80px auto;
+  padding:25px;
+}
+
+/* Section Title */
+.contact-header{
+  margin-bottom:40px;
+}
+.contact-header h1{
+  font-size:36px;
+  font-weight:600;
+  color:#e6e6e6;
+  position:relative;
+  padding-bottom:10px;
+}
+.contact-header h1::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:70px;
+  height:3px;
+  background:#d4af37;
+}
+.contact-header p{
+  margin-top:6px;
+  color:#bfbfbf;
+}
+
+/* GRID */
+.contact-box{
+  display:grid;
+  grid-template-columns:1.2fr .9fr;
+  gap:35px;
+}
+@media(max-width:900px){
+  .contact-box{grid-template-columns:1fr;}
+}
+
+/* CARD STYLE BASE */
+.card{
+  background:#101010;
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:14px;
+  box-shadow:0 0 25px rgba(212,175,55,.06);
+  padding:30px;
+}
+
+/* Card Title */
+.card h2{
+  color:#e6e6e6;
+  font-weight:600;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px;
+}
+.card h2::before{
+  content:"";
+  width:8px;
+  height:26px;
+  background:linear-gradient(#d4af37, #b8962c);
+  border-radius:3px;
+}
+
+/* FORM */
+form input, form textarea{
+  width:100%;
+  padding:13px;
+  margin:10px 0 15px;
+  border-radius:7px;
+  border:1px solid rgba(212,175,55,.4);
+  background:#0b0b0b;
+  color:#e6e6e6;
+  outline:none;
+  transition:.3s;
+}
+form input:focus, form textarea:focus{
+  border-color:#d4af37;
+  box-shadow:0 0 10px rgba(212,175,55,.4);
+}
+button{
+  width:100%;
+  padding:13px;
+  border:none;
+  background:linear-gradient(to right,#d4af37,#ba982c);
+  color:#000;
+  font-weight:650;
+  letter-spacing:.5px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 18px rgba(212,175,55,.4);
+}
+
+/* CONTACT DETAILS */
+.contact-info p{
+  margin:14px 0;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  flex-wrap:wrap;
+  color:#bfbfbf;
+  font-size:15px;
+}
+
+.icon-box{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.icon-box img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+}
+
+.contact-info span{
+  color:#d4af37;
+  font-weight:600;
+}
+
+.contact-info a{
+  color:#bfbfbf;
+  text-decoration:none;
+  font-weight:500;
+}
+.contact-info a:hover{
+  color:#fff;
+  text-decoration:underline;
+}
+
+/* FOOTER */
+.footer{
+  background:#000;
+  border-top:1px solid rgba(212,175,55,.25);
+  text-align:center;
+  padding:25px;
+  color:#cfcfcf;
+  margin-top:50px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  top:25px;
+  right:25px;
+  padding:15px 25px;
+  border-radius:8px;
+  font-weight:500;
+  opacity:0;
+  pointer-events:none;
+  transition:.4s;
+}
+.toast.success{
+  background:#1f3d1f;
+  color:#9eff9e;
+  border:1px solid #5aff5a;
+}
+.toast.error{
+  background:#3d1f1f;
+  color:#ff9e9e;
+  border:1px solid #ff5959;
+}
+.toast.show{opacity:1;}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">AmodoCh Logistics</div>
+
+  <ul id="menu">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="/contacts/contact.html" style="color:#d4af37;">Contact</a></li>
+  </ul>
+
+  <div class="toggle" onclick="toggleMenu()">☰</div>
+</header>
+
+<section class="contact-container">
+
+  <div class="contact-header">
+    <h1>Contact Us</h1>
+    <p>We're always ready to respond quickly and professionally</p>
+  </div>
+
+  <div class="contact-box">
+
+    <!-- FORM -->
+    <div class="card">
+      <h2>Send Us a Message</h2>
+
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="phone" placeholder="Phone Number">
+        <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- CONTACT DETAILS -->
+    <div class="card">
+      <h2>Our Contact Details</h2>
+
+      <div class="contact-info">
+
+        <p>
+          <span class="icon-box"><img src="/assets/phone.png"></span>
+          <span>Phone:</span>
+          <a href="tel:+2349065680495">+234 906 568 0495,</a>
+          <a href="tel:+2348086100323">+234 808 610 0323</a>
+        </p>
+
+        <p>
+          <span class="icon-box"><img src="/assets/whatsapp.png"></span>
+          <span>WhatsApp:</span>
+          <a href="https://wa.me/2349065680495" target="_blank">+234 906 568 0495,</a>
+          <a href="https://wa.me/2348101464495" target="_blank">+234 810 146 4495</a>
+        </p>
+
+        <p>
+          <span class="icon-box"><img src="/assets/email.png"></span>
+          <span>Email:</span>
+          <a href="mailto:amodoch2021@gmail.com">amodoch2021@gmail.com,</a>
+          <a href="mailto:info@amodochlogistics.com">info@amodochlogistics.com</a>
+        </p>
+
+        <p>
+          <span class="icon-box"><img src="/assets/instagram.png"></span>
+          <span>Instagram:</span>
+          <a href="https://www.instagram.com/amodoch_logistics" target="_blank">@amodoch_logistics,</a>
+          <a href="https://www.instagram.com/amodochlogisticsgroup" target="_blank">@amodochlogisticsgroup</a>
+        </p>
+
+        <p>
+          <span class="icon-box"><img src="/assets/facebook.png"></span>
+          <span>Facebook:</span>
+          <a href="https://www.facebook.com/share/1A3gxLW4Tc/" target="_blank">@Amo Doch (AL)</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div id="toast" class="toast"></div>
+
+<footer class="footer">
+  ©️ 2025 AmodoCh Logistics. All Rights Reserved.
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("active");
+}
+
+function showToast(message, type){
+  const toast=document.getElementById("toast");
+  toast.className=`toast ${type} show`;
+  toast.innerHTML=message;
+  setTimeout(()=>toast.classList.remove("show"),3500);
+}
+
+document.getElementById("contactForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const form=e.target;
+  const formData=new FormData(form);
+
+  showToast("Sending message...","success");
+
+  let res=await fetch("mail.php",{method:"POST",body:formData});
+  let data=await res.json();
+
+  if(data.success){
+    showToast("Message Sent Successfully!","success");
+    form.reset();
+  } else {
+    showToast("Failed to send message. Please try again.","error");
+  }
+});
+</script>
+
+</body>
+</html>
