@@ -104,6 +104,100 @@ body{
 @media(max-width:900px){
   .contact-box{grid-template-columns:1fr;}
 }
+/* MOBILE & TABLET ADJUSTMENTS */
+@media(max-width:900px){
+  .contact-box{
+    grid-template-columns:1fr;
+    gap:25px;
+  }
+
+  .contact-header h1{
+    font-size:28px;
+  }
+
+  .contact-header p{
+    font-size:14px;
+  }
+
+  form input, form textarea, button{
+    padding:12px;
+    font-size:14px;
+  }
+
+  .card h2{
+    font-size:18px;
+  }
+
+  .map-wrapper iframe{
+    height:300px;
+  }
+
+  .icon-box{
+    width:30px;
+    height:30px;
+  }
+
+  .contact-info p{
+    font-size:14px;
+    gap:8px;
+  }
+}
+
+@media(max-width:600px){
+  .contact-container{
+    padding:15px;
+    margin:60px 10px;
+  }
+
+  .contact-header h1{
+    font-size:24px;
+  }
+
+  .contact-header p{
+    font-size:13px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+  form input, form textarea, button{
+    padding:10px;
+    font-size:13px;
+  }
+
+  .map-wrapper iframe{
+    height:250px;
+  }
+
+  .icon-box{
+    width:26px;
+    height:26px;
+  }
+
+  .contact-info p{
+    font-size:13px;
+    gap:6px;
+  }
+}
+
+@media(max-width:400px){
+  .contact-header h1{
+    font-size:22px;
+  }
+
+  .contact-header p{
+    font-size:12px;
+  }
+
+  button{
+    font-size:13px;
+  }
+
+  .map-wrapper iframe{
+    height:220px;
+  }
+}
 
 /* CARD STYLE BASE */
 .card{
@@ -206,6 +300,29 @@ button:hover{
   color:#fff;
   text-decoration:underline;
 }
+
+/* MAP STYLING */
+.map-wrapper{
+  position: relative;
+  margin-top:25px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(212,175,55,.4);
+  box-shadow:0 0 20px rgba(212,175,55,.08);
+}
+
+.map-wrapper iframe{
+  width:100%;
+  height:400px;
+  border:0;
+  transition: transform 0.3s ease;
+  border-radius:14px;
+}
+
+.map-wrapper:hover iframe{
+  transform:scale(1.02);
+}
+
 
 /* FOOTER */
 .footer{
@@ -322,6 +439,20 @@ button:hover{
       </div>
     </div>
 
+    <section class="map-section">
+  <h2 class="section-title">Find Us</h2>
+  <div class="section-line"></div>
+
+  
+</section>
+  </div>
+  <div class="map-wrapper">
+    <iframe 
+      src="https://www.google.com/maps?q=Ojaja%20Mall%20Abraham%20Adesanya%20Ajah%20Lagos&output=embed"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
   </div>
 </section>
 
@@ -332,50 +463,77 @@ button:hover{
 </footer>
 
 <script>
+// ================= NAV MENU =================
 const menu = document.getElementById("menu");
 const toggleBtn = document.querySelector(".toggle");
 
-/* Toggle Menu */
 function toggleMenu(){
   menu.classList.toggle("active");
 }
 
-/* Close when clicking any menu link */
+// Close menu when clicking a link
 document.querySelectorAll("#menu a").forEach(link=>{
   link.addEventListener("click", ()=> menu.classList.remove("active"));
 });
 
-/* Close when clicking outside */
+// Close menu when clicking outside
 document.addEventListener("click", e=>{
   if(!menu.contains(e.target) && !toggleBtn.contains(e.target)){
     menu.classList.remove("active");
   }
 });
 
-/* TOAST + FORM HANDLER (yours stays the same) */
+// ================= TOAST =================
 function showToast(message, type){
-  const toast=document.getElementById("toast");
-  toast.className=`toast ${type} show`;
-  toast.innerHTML=message;
-  setTimeout(()=>toast.classList.remove("show"),3500);
+  const toast = document.getElementById("toast");
+  toast.className = `toast ${type} show`;
+  toast.innerHTML = message;
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  }, 3500);
 }
 
-document.getElementById("contactForm").addEventListener("submit",async e=>{
+// ================= FORM SUBMISSION =================
+const form = document.getElementById("contactForm");
+const submitBtn = form.querySelector("button");
+
+form.addEventListener("submit", async (e)=>{
   e.preventDefault();
-  const form=e.target;
-  const formData=new FormData(form);
 
-  showToast("Sending message...","success");
+  // Prevent double clicking
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Sending...";
 
-  let res=await fetch("mail.php",{method:"POST",body:formData});
-  let data=await res.json();
+  const formData = new FormData(form);
 
-  if(data.success){
-    showToast("Message Sent Successfully!","success");
-    form.reset();
-  } else {
-    showToast("Failed to send message. Please try again.","error");
+  try{
+    const res = await fetch("mail.php", {
+      method: "POST",
+      body: formData
+    });
+
+    let data;
+    try{
+      data = await res.json();
+    } catch{
+      data = { success:false };
+    }
+
+    if(data.success){
+      showToast("Message Sent Successfully!", "success");
+      form.reset();
+    } else {
+      showToast("Failed to send. Please try again.", "error");
+    }
+
+  } catch(error){
+    showToast("Network error. Please check your internet.", "error");
   }
+
+  // Restore button
+  submitBtn.disabled = false;
+  submitBtn.innerText = "Send Message";
 });
 </script>
 
