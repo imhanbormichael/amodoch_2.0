@@ -35,7 +35,7 @@ body{
 .navbar a:hover{color:#d4af37;}
 .toggle{display:none;font-size:30px;cursor:pointer;}
 
-@media(max-width:768px){
+@media(max-width:900px){
   .navbar ul{
     position:fixed;
     top:70px;
@@ -321,10 +321,27 @@ button:hover{
 </footer>
 
 <script>
+const menu = document.getElementById("menu");
+const toggleBtn = document.querySelector(".toggle");
+
+/* Toggle Menu */
 function toggleMenu(){
-  document.getElementById("menu").classList.toggle("active");
+  menu.classList.toggle("active");
 }
 
+/* Close when clicking any menu link */
+document.querySelectorAll("#menu a").forEach(link=>{
+  link.addEventListener("click", ()=> menu.classList.remove("active"));
+});
+
+/* Close when clicking outside */
+document.addEventListener("click", e=>{
+  if(!menu.contains(e.target) && !toggleBtn.contains(e.target)){
+    menu.classList.remove("active");
+  }
+});
+
+/* TOAST + FORM HANDLER (yours stays the same) */
 function showToast(message, type){
   const toast=document.getElementById("toast");
   toast.className=`toast ${type} show`;
