@@ -784,6 +784,16 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
+  // Select the div element with the class 'logo'
+const logoDiv = document.querySelector('.logo');
+
+// Add a click event listener
+logoDiv.addEventListener('click', function() {
+    // Redirect to the index.html page
+    window.location.href = '/index.html';
+});
+</script>
+<script>
   // Add 'loading' class to body
   document.body.classList.add('loading');
 
