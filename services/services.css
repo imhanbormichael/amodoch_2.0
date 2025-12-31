@@ -303,6 +303,8 @@ body{
   font-weight:600;
   text-decoration:none;
   transition:.3s;
+  position: relative;
+  top: 20px;
 }
 .cta a:hover{
   opacity:.8;
