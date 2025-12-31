@@ -107,10 +107,49 @@ button:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(212,175,55,.4);
 @media(max-width:1024px){.contact-box{grid-template-columns:1fr;}}
 @media(max-width:768px){.contact-header h1{font-size:28px;} .contact-header p{font-size:15px;} button{padding:10px;}}
 @media(max-width:480px){.contact-header h1{font-size:24px;} .card{padding:15px;} form input,form textarea{padding:10px;font-size:14px;} .footer-container{flex-direction:column;align-items:center;gap:15px;}}
+
+/* ================= PRELOADER ================= */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* Spinner */
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #2a2a2a;
+  border-top: 5px solid #d4a437;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+body.loading {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation: none;
+  }
+}
 </style>
 </head>
 
 <body>
+  <!-- Preloader -->
+<div id="preloader">
+  <div class="loader"></div>
+</div>
 
 <header class="navbar">
   <div class="logo"><img src="/assets/image.png" alt="Amodoch Logistics Logo"></div>
@@ -233,5 +272,18 @@ button:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(212,175,55,.4);
   });
 </script>
 
+<script>
+  // Add 'loading' class to body
+  document.body.classList.add('loading');
+
+  // Hide preloader after page fully loads
+  window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if(preloader){
+      preloader.style.display = 'none';
+    }
+    document.body.classList.remove('loading');
+  });
+</script>
 </body>
 </html>

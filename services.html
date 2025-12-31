@@ -555,10 +555,49 @@ button:focus-visible {
     transition: none !important;
   }
 }
+
+/* ================= PRELOADER ================= */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* Spinner */
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #2a2a2a;
+  border-top: 5px solid #d4a437;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+body.loading {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation: none;
+  }
+}
 </style>
 </head>
 
 <body>
+    <!-- Preloader -->
+<div id="preloader">
+  <div class="loader"></div>
+</div>
 
 <!-- ================= HEADER / NAVBAR ================= -->
     <header class="navbar">
@@ -744,5 +783,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+  // Add 'loading' class to body
+  document.body.classList.add('loading');
+
+  // Hide preloader after page fully loads
+  window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if(preloader){
+      preloader.style.display = 'none';
+    }
+    document.body.classList.remove('loading');
+  });
+</script>
 </body>
 </html>
