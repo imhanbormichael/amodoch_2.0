@@ -348,6 +348,13 @@ img {
   gap: 20px;
 }
 
+
+
+/* PRIMARY HOVER */
+.hero .btn-primary:hover {
+    transform: translateY(-2px);
+}
+
 /* =====================================================
    LARGE DESKTOPS (1440px+)
    ===================================================== */
