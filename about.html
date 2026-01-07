@@ -553,6 +553,7 @@ section{
   border-radius: 50%;
   z-index: 5;
   transition: background .3s, transform .2s;
+  z-index: 20;
 }
 
 .arrow:hover{
@@ -571,6 +572,12 @@ section{
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
+  z-index: 20;
+  opacity: .75;
+}
+
+.slider:hover .slider-dots{
+  opacity: 1;
 }
 
 .dot{
