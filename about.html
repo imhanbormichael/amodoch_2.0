@@ -455,6 +455,125 @@ section{
   }
 }
 
+/* ===== SLIDER ===== */
+.slider{
+  position: relative;
+  overflow: hidden;
+  margin-top: 25px;
+  border-radius: 14px;
+}
+
+/* Track */
+.slides{
+  display: flex;
+  transition: transform 0.7s ease;
+}
+
+/* Images */
+.slides img{
+  min-width: 100%;
+  height: 420px; /* 👈 desktop height */
+  object-fit: cover;
+  object-position: center;
+  border-radius: 14px;
+  border: 1px solid rgba(201,162,39,.25);
+}
+
+/* ===== LARGE SCREENS ===== */
+@media (min-width: 1200px){
+  .slides img{
+    height: 480px; /* 👈 cinematic desktop look */
+  }
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+  .slides img{
+    height: 260px;
+  }
+}
+@media (min-width: 1200px){
+  .slider{
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,.35) 100%
+    );
+  }
+}
+@media (min-width: 1200px){
+  .arrow{
+    font-size: 32px;
+    padding: 14px 18px;
+  }
+
+  .prev{ left: 22px; }
+  .next{ right: 22px; }
+}
+
+/* ===== ARROWS ===== */
+.arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,.6);
+  border: none;
+  color: #c9a227;
+  font-size: 26px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 5;
+  transition: background .3s, transform .2s;
+}
+
+.arrow:hover{
+  background: rgba(0,0,0,.85);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.prev{ left: 14px; }
+.next{ right: 14px; }
+
+/* ===== DOTS ===== */
+.slider-dots{
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(201,162,39,.35);
+  cursor: pointer;
+}
+
+.dot.active{
+  background: #c9a227;
+  transform: scale(1.2);
+}
+
+/* ===== SLIDER PRELOADER ===== */
+.slider-loader{
+  position: absolute;
+  inset: 0;
+  background: #0b0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Mobile height */
+@media(max-width:900px){
+  .slides img{ height: 260px; }
+}
+
 /* CTA */
 .cta{
   text-align:center;
@@ -869,19 +988,30 @@ body.loading {
   <h2 class="section-title">A Glimpse of What We Do</h2>
   <div class="section-line"></div>
 
-  <div class="image-strip">
-    <img src="/assets/warehouse-bike.png" alt="Motorbikes ready for dispatch">
-    <img src="/assets/landcruiser.png" alt="landcruisers for rental services">
-    <img src="/assets/coastal.png" alt="Coastal buses for transport services">
+  <div class="slider" id="glimpseSlider">
+  <!-- PRELOADER OVER SLIDER -->
+  <div class="slider-loader">
+    <div class="loader"></div>
   </div>
-</section>
 
+  <div class="slides">
+    <img src="/assets/warehouse-bike.png" loading="lazy" alt="Motorbikes ready for dispatch">
+    <img src="/assets/landcruiser.png" loading="lazy" alt="Landcruisers for rental services">
+    <img src="/assets/coastal.png" loading="lazy" alt="Coastal buses for transport services">
+  </div>
 
-<div class="cta">
-  <h2 style="color:#c9a227;">We’re Ready to Move You Forward</h2>
-  <p>Experience premium transport & logistics service the right way.</p>
-  <a href="/contacts/contact.html">Contact Us</a>
+  <!-- ARROWS -->
+  <button class="arrow prev">&#10094;</button>
+  <button class="arrow next">&#10095;</button>
+
+  <!-- DOTS -->
+  <div class="slider-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
 </div>
+</section>
 
 
 <!-- MEGA FOOTER -->
@@ -1003,6 +1133,66 @@ logoDiv.addEventListener('click', function() {
       preloader.style.display = 'none';
     }
     document.body.classList.remove('loading');
+  });
+</script>
+<script>
+  const slider = document.getElementById('glimpseSlider');
+  const slides = slider.querySelector('.slides');
+  const images = slides.querySelectorAll('img');
+  const dots = slider.querySelectorAll('.dot');
+  const prevBtn = slider.querySelector('.prev');
+  const nextBtn = slider.querySelector('.next');
+  const loader = slider.querySelector('.slider-loader');
+
+  let index = 0;
+  let interval;
+  let startX = 0;
+
+  function showSlide(i){
+    index = (i + images.length) % images.length;
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(d => d.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  function startAutoSlide(){
+    interval = setInterval(() => {
+      showSlide(index + 1);
+    }, 4000);
+  }
+
+  function stopAutoSlide(){
+    clearInterval(interval);
+  }
+
+  // Arrow controls
+  nextBtn.onclick = () => showSlide(index + 1);
+  prevBtn.onclick = () => showSlide(index - 1);
+
+  // Dot controls
+  dots.forEach((dot, i) => {
+    dot.onclick = () => showSlide(i);
+  });
+
+  // Pause on hover
+  slider.addEventListener('mouseenter', stopAutoSlide);
+  slider.addEventListener('mouseleave', startAutoSlide);
+
+  // Swipe support
+  slides.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+
+  slides.addEventListener('touchend', e => {
+    let diff = startX - e.changedTouches[0].clientX;
+    if(diff > 50) showSlide(index + 1);
+    if(diff < -50) showSlide(index - 1);
+  });
+
+  // Preloader logic (wait for first image)
+  images[0].addEventListener('load', () => {
+    loader.style.display = 'none';
+    startAutoSlide();
   });
 </script>
 </body>
