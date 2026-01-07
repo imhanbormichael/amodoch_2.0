@@ -260,9 +260,18 @@ img {
   background-size: cover;
   background-position: center 35%;
   background-repeat: no-repeat;
+  animation: heroPan 18s ease-in-out infinite alternate;
 }
-.hero-inner {
-  overflow: hidden;
+
+@keyframes heroPan {
+    0% {
+    background-position: center 35%;
+    background-size: 100%;
+  }
+  100% {
+    background-position: center 45%;
+    background-size: 108%;
+  }
 }
 
 /* ---------- Dark Overlay ---------- */
@@ -348,7 +357,25 @@ img {
   gap: 20px;
 }
 
+.hero-badge,
+.hero-title,
+.hero-description,
+.hero-buttons {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.9s ease forwards;
+}
 
+.hero-title { animation-delay: .15s; }
+.hero-description { animation-delay: .3s; }
+.hero-buttons { animation-delay: .45s; }
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* PRIMARY HOVER */
 .hero .btn-primary:hover {
@@ -610,6 +637,14 @@ img {
 
 .service-glow:hover .service-card {
     border-color: var(--gold);
+}
+
+.service-card:hover .service-icon {
+  transform: rotate(-6deg) scale(1.08);
+  transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+}
+.service-card:hover .service-icon svg {
+  filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.7));
 }
 
 /* featured */
