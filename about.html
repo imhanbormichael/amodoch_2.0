@@ -458,48 +458,76 @@ section{
 /* ===== SLIDER ===== */
 .slider{
   position: relative;
+  height: 520px;
   overflow: hidden;
   margin-top: 25px;
   border-radius: 14px;
 }
 
-/* Track */
+/* ===== SLIDES TRACK ===== */
 .slides{
+  position: relative;
   display: flex;
-  transition: transform 0.7s ease;
 }
 
-/* Images */
+/* Each slide */
 .slides img{
-  min-width: 100%;
-  height: 420px; /* 👈 desktop height */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 420px;
   object-fit: cover;
-  object-position: center;
   border-radius: 14px;
   border: 1px solid rgba(201,162,39,.25);
+
+  opacity: 0;
+  transform: translateX(30px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
 }
 
-/* ===== LARGE SCREENS ===== */
-@media (min-width: 1200px){
-  .slides img{
-    height: 480px; /* 👈 cinematic desktop look */
-  }
+/* Active slide */
+.slides img.active{
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 1;
 }
 
-/* ===== MOBILE ===== */
+/* Previous slide (subtle slide left) */
+.slides img.prev{
+  transform: translateX(-30px);
+}
+
+/* Desktop cinematic */
+@media (min-width:1200px){
+  .slides img{ height: 480px; }
+}
+
+/* Mobile */
 @media(max-width:900px){
+  .slides img{ height: 260px; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce){
   .slides img{
-    height: 260px;
+    transition: none;
+    transform: none;
   }
 }
 @media (min-width: 1200px){
   .slider{
+    height: 520px;
     background: radial-gradient(
       ellipse at center,
       rgba(0,0,0,0) 0%,
       rgba(0,0,0,.35) 100%
     );
   }
+}
+@media (max-width:900px){
+    .slider{ height: 260px;}
 }
 @media (min-width: 1200px){
   .arrow{
@@ -995,7 +1023,7 @@ body.loading {
   </div>
 
   <div class="slides">
-    <img src="/assets/warehouse-bike.png" loading="lazy" alt="Motorbikes ready for dispatch">
+    <img src="/assets/warehouse-bike.png" class="active" loading="lazy" alt="Motorbikes ready for dispatch">
     <img src="/assets/landcruiser.png" loading="lazy" alt="Landcruisers for rental services">
     <img src="/assets/coastal.png" loading="lazy" alt="Coastal buses for transport services">
   </div>
@@ -1137,8 +1165,7 @@ logoDiv.addEventListener('click', function() {
 </script>
 <script>
   const slider = document.getElementById('glimpseSlider');
-  const slides = slider.querySelector('.slides');
-  const images = slides.querySelectorAll('img');
+  const images = slider.querySelectorAll('.slides img');
   const dots = slider.querySelectorAll('.dot');
   const prevBtn = slider.querySelector('.prev');
   const nextBtn = slider.querySelector('.next');
@@ -1148,51 +1175,56 @@ logoDiv.addEventListener('click', function() {
   let interval;
   let startX = 0;
 
-  function showSlide(i){
-    index = (i + images.length) % images.length;
-    slides.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach(d => d.classList.remove('active'));
+  function showSlide(newIndex){
+    images[index].classList.remove('active');
+    images[index].classList.add('prev');
+    dots[index].classList.remove('active');
+
+    index = (newIndex + images.length) % images.length;
+
+    images[index].classList.add('active');
+    images[index].classList.remove('prev');
     dots[index].classList.add('active');
   }
 
-  function startAutoSlide(){
+  function startAuto(){
     interval = setInterval(() => {
       showSlide(index + 1);
-    }, 4000);
+    }, 4500);
   }
 
-  function stopAutoSlide(){
+  function stopAuto(){
     clearInterval(interval);
   }
 
-  // Arrow controls
-  nextBtn.onclick = () => showSlide(index + 1);
-  prevBtn.onclick = () => showSlide(index - 1);
+  // Arrow buttons
+  nextBtn.addEventListener('click', () => showSlide(index + 1));
+  prevBtn.addEventListener('click', () => showSlide(index - 1));
 
-  // Dot controls
+  // Dot navigation
   dots.forEach((dot, i) => {
-    dot.onclick = () => showSlide(i);
+    dot.addEventListener('click', () => showSlide(i));
   });
 
   // Pause on hover
-  slider.addEventListener('mouseenter', stopAutoSlide);
-  slider.addEventListener('mouseleave', startAutoSlide);
+  slider.addEventListener('mouseenter', stopAuto);
+  slider.addEventListener('mouseleave', startAuto);
 
   // Swipe support
-  slides.addEventListener('touchstart', e => {
+  slider.addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
   });
 
-  slides.addEventListener('touchend', e => {
-    let diff = startX - e.changedTouches[0].clientX;
-    if(diff > 50) showSlide(index + 1);
-    if(diff < -50) showSlide(index - 1);
+  slider.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (diff > 50) showSlide(index + 1);
+    if (diff < -50) showSlide(index - 1);
   });
 
-  // Preloader logic (wait for first image)
+  // Preloader integration
   images[0].addEventListener('load', () => {
     loader.style.display = 'none';
-    startAutoSlide();
+    startAuto();
   });
 </script>
 </body>
