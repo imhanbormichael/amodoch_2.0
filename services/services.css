@@ -267,6 +267,7 @@ body{
 @media (max-width: 767px) {
   .hero {
     padding: 60px 16px;
+    max-width: 350px;
   }
 
   .hero h1 {
