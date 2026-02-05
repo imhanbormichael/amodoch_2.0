@@ -495,133 +495,150 @@ input.invalid, textarea.invalid {
 <div class="progress-bar" id="progressBar"></div>
 <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 <audio id="errorSound" src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" preload="auto"></audio>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-  
-/* ================= NAVBAR ================= */
-const navToggle = document.querySelector('.nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-const navItems = document.querySelectorAll('.nav-links a');
+document.addEventListener('DOMContentLoaded', () => {
 
-function closeMenu(){
-  navToggle.classList.remove('active');
-  navLinks.classList.remove('active');
-  navToggle.setAttribute('aria-expanded','false');
-  document.body.classList.remove('menu-open');
-}
+  /* ================= NAVBAR ================= */
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const navItems = document.querySelectorAll('.nav-links a');
 
-navToggle.addEventListener('click', e => {
-  e.stopPropagation();
-  const isOpen = navLinks.classList.toggle('active');
-  navToggle.classList.toggle('active');
-  navToggle.setAttribute('aria-expanded', isOpen);
-  document.body.classList.toggle('menu-open', isOpen);
-});
-
-navItems.forEach(link => link.addEventListener('click', closeMenu));
-document.addEventListener('click', e => {
-  if(!navLinks.contains(e.target) && !navToggle.contains(e.target)) closeMenu();
-});
-
-/* ================= LOGO CLICK ================= */
-document.querySelector('.logo')?.addEventListener('click', () => {
-  window.location.href = '/index.html';
-});
-
-/* ================= PRELOADER ================= */
-document.body.classList.add('loading');
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  if(preloader) preloader.style.display = 'none';
-  document.body.classList.remove('loading');
-});
-
-/* ================= TOAST ================= */
-function showToast(message, type){
-  const toast = document.getElementById("toast");
-  toast.className = `toast ${type} show`;
-  toast.textContent = message;
-  setTimeout(()=>toast.classList.remove("show"),3500);
-}
-
-/* ================= FORM UX ENGINE ================= */
-const form = document.getElementById("contactForm");
-const submitBtn = form.querySelector("button");
-const popup = document.getElementById("successPopup");
-const progress = document.getElementById("progressBar");
-const successSound = document.getElementById("successSound");
-const errorSound = document.getElementById("errorSound");
-
-function startProgress(){
-  progress.style.width = "30%";
-  setTimeout(()=>progress.style.width="70%",300);
-}
-
-function finishProgress(){
-  progress.style.width="100%";
-  setTimeout(()=>progress.style.width="0%",600);
-}
-
-function launchConfetti(){
-  for(let i=0;i<120;i++){
-    const conf = document.createElement("div");
-    conf.className="confetti";
-    conf.style.left=Math.random()*100+"vw";
-    conf.style.background=`hsl(${Math.random()*360},90%,60%)`;
-    conf.style.animationDuration=2+Math.random()*2+"s";
-    document.body.appendChild(conf);
-    setTimeout(()=>conf.remove(),4000);
-  }
-}
-
-form.addEventListener("submit", async e=>{
-  e.preventDefault();
-
-  submitBtn.classList.add("loading");
-  submitBtn.innerHTML="";
-  startProgress();
-
-  try{
-    const res = await fetch("mail.php",{method:"POST",body:new FormData(form)});
-    const data = await res.json();
-
-    if(data.success){
-      finishProgress();
-      successSound.play();
-      launchConfetti();
-      popup.classList.add("active");
-      form.reset();
-      setTimeout(()=>popup.classList.remove("active"),3000);
-    } else {
-      throw Error();
-    }
-
-  } catch {
-    finishProgress();
-    errorSound.play();
-    showToast("Failed to send. Try again.","error");
-    form.classList.add("shake");
+  function closeMenu(){
+    navToggle.classList.remove('active');
+    navLinks.classList.remove('active');
+    navToggle.setAttribute('aria-expanded','false');
+    document.body.classList.remove('menu-open');
   }
 
-  setTimeout(()=>{
-    submitBtn.classList.remove("loading");
-    submitBtn.innerHTML="Send Message";
-    form.classList.remove("shake");
-  },1200);
-});
-
-/* ================= LIVE VALIDATION ================= */
-form.querySelectorAll("input,textarea").forEach(input=>{
-  input.addEventListener("input",()=>{
-    if(input.checkValidity()){
-      input.classList.add("valid");
-      input.classList.remove("invalid");
-    } else {
-      input.classList.add("invalid");
-      input.classList.remove("valid");
-    }
+  navToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = navLinks.classList.toggle('active');
+    navToggle.classList.toggle('active');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.classList.toggle('menu-open', isOpen);
   });
-});
+
+  navItems.forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('click', e => {
+    if(!navLinks.contains(e.target) && !navToggle.contains(e.target)) closeMenu();
+  });
+
+  /* ================= LOGO CLICK ================= */
+  document.querySelector('.logo')?.addEventListener('click', () => {
+    window.location.href = '/index.html';
+  });
+
+  /* ================= PRELOADER ================= */
+  document.body.classList.add('loading');
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if(preloader) preloader.style.display = 'none';
+    document.body.classList.remove('loading');
+  });
+
+  /* ================= TOAST ================= */
+  function showToast(message, type){
+    const toast = document.getElementById("toast");
+    toast.className = `toast ${type} show`;
+    toast.textContent = message;
+    setTimeout(()=>toast.classList.remove("show"),3500);
+  }
+
+  /* ================= EMAILJS ================= */
+  emailjs.init('service_2h6uwlj'); // Your Service ID
+
+  /* ================= FORM UX ENGINE ================= */
+  const form = document.getElementById("contactForm");
+  const submitBtn = form.querySelector("button");
+  const popup = document.getElementById("successPopup");
+  const progress = document.getElementById("progressBar");
+
+  function startProgress(){
+    progress.style.width = "30%";
+    setTimeout(()=>progress.style.width="70%",300);
+  }
+
+  function finishProgress(){
+    progress.style.width="100%";
+    setTimeout(()=>progress.style.width="0%",600);
+  }
+
+  function launchConfetti(){
+    for(let i=0;i<120;i++){
+      const conf = document.createElement("div");
+      conf.className="confetti";
+      conf.style.left=Math.random()*100+"vw";
+      conf.style.background=`hsl(${Math.random()*360},90%,60%)`;
+      conf.style.animationDuration=2+Math.random()*2+"s";
+      document.body.appendChild(conf);
+      setTimeout(()=>conf.remove(),4000);
+    }
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    // Spam check: hidden company field must be empty
+    if(form.company.value){
+      showToast("Spam detected!", "error");
+      return;
+    }
+
+    submitBtn.classList.add("loading");
+    submitBtn.innerHTML="";
+
+    startProgress();
+
+    // Gather form data
+    const formData = {
+      from_name: form.name.value,
+      from_email: form.email.value,
+      phone: form.phone.value,
+      message: form.message.value,
+      subject: `New Message from ${form.name.value} | Phone: ${form.phone.value || "N/A"}`,
+      to_email: 'amodoch2021@gmail.com',
+      cc_email: 'info@amodochlogistics.com',
+      reply_to: form.email.value, // <-- Reply-to automatically set to user email
+      body: `Name: ${form.name.value}\nEmail: ${form.email.value}\nPhone: ${form.phone.value || "N/A"}\nMessage: ${form.message.value}`
+    };
+
+    // Send email via EmailJS (service ID only)
+    emailjs.send('service_2h6uwlj', '', formData)
+      .then(() => {
+        finishProgress();
+        launchConfetti();
+        popup.classList.add("active");
+        form.reset();
+        setTimeout(()=>popup.classList.remove("active"),3000);
+      })
+      .catch(() => {
+        finishProgress();
+        showToast("Failed to send. Try again.","error");
+        form.classList.add("shake");
+      })
+      .finally(() => {
+        setTimeout(()=>{
+          submitBtn.classList.remove("loading");
+          submitBtn.innerHTML="Send Message";
+          form.classList.remove("shake");
+        },1200);
+      });
+  });
+
+  /* ================= LIVE VALIDATION ================= */
+  form.querySelectorAll("input,textarea").forEach(input=>{
+    input.addEventListener("input",()=>{
+      if(input.checkValidity()){
+        input.classList.add("valid");
+        input.classList.remove("invalid");
+      } else {
+        input.classList.add("invalid");
+        input.classList.remove("valid");
+      }
+    });
+  });
+
 });
 </script>
 </body>
