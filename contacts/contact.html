@@ -409,7 +409,7 @@ input.invalid, textarea.invalid {
   <div class="contact-box">
     <div class="card">
       <h2>Send Us a Message</h2>
-      <form id="contactForm">
+      <form id="contactForm" action="send.php" method="POST">
         <input type="text" name="company" style="display:none">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
@@ -495,7 +495,6 @@ input.invalid, textarea.invalid {
 <div class="progress-bar" id="progressBar"></div>
 <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 <audio id="errorSound" src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" preload="auto"></audio>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -524,11 +523,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!navLinks.contains(e.target) && !navToggle.contains(e.target)) closeMenu();
   });
 
-  /* ================= LOGO CLICK ================= */
-  document.querySelector('.logo')?.addEventListener('click', () => {
-    window.location.href = '/index.html';
-  });
-
   /* ================= PRELOADER ================= */
   document.body.classList.add('loading');
   window.addEventListener('load', () => {
@@ -545,10 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(()=>toast.classList.remove("show"),3500);
   }
 
-  /* ================= EMAILJS ================= */
-  emailjs.init('service_2h6uwlj'); // Your Service ID
-
-  /* ================= FORM UX ENGINE ================= */
+  /* ================= FORM SUBMISSION ================= */
   const form = document.getElementById("contactForm");
   const submitBtn = form.querySelector("button");
   const popup = document.getElementById("successPopup");
@@ -590,40 +581,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startProgress();
 
-    // Gather form data
-    const formData = {
-      from_name: form.name.value,
-      from_email: form.email.value,
-      phone: form.phone.value,
-      message: form.message.value,
-      subject: `New Message from ${form.name.value} | Phone: ${form.phone.value || "N/A"}`,
-      to_email: 'amodoch2021@gmail.com',
-      cc_email: 'info@amodochlogistics.com',
-      reply_to: form.email.value, // <-- Reply-to automatically set to user email
-      body: `Name: ${form.name.value}\nEmail: ${form.email.value}\nPhone: ${form.phone.value || "N/A"}\nMessage: ${form.message.value}`
-    };
+    // Prepare form data
+    const formData = new FormData(form);
 
-    // Send email via EmailJS (service ID only)
-    emailjs.send('service_2h6uwlj', '', formData)
-      .then(() => {
-        finishProgress();
+    // Send via fetch to PHP
+    fetch("send.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      finishProgress();
+      if(data.trim() === "success"){
         launchConfetti();
         popup.classList.add("active");
         form.reset();
         setTimeout(()=>popup.classList.remove("active"),3000);
-      })
-      .catch(() => {
-        finishProgress();
-        showToast("Failed to send. Try again.","error");
+      } else {
+        showToast("Failed to send. Try again.", "error");
         form.classList.add("shake");
-      })
-      .finally(() => {
-        setTimeout(()=>{
-          submitBtn.classList.remove("loading");
-          submitBtn.innerHTML="Send Message";
-          form.classList.remove("shake");
-        },1200);
-      });
+      }
+    })
+    .catch(()=>{
+      finishProgress();
+      showToast("An error occurred. Try again.", "error");
+      form.classList.add("shake");
+    })
+    .finally(()=>{
+      setTimeout(()=>{
+        submitBtn.classList.remove("loading");
+        submitBtn.innerHTML="Send Message";
+        form.classList.remove("shake");
+      },1200);
+    });
   });
 
   /* ================= LIVE VALIDATION ================= */
@@ -641,5 +631,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 </script>
+
 </body>
 </html>
